@@ -11,7 +11,7 @@ task :cover, [:filter] do |task, args|
 
 #	Utils.run_cmd(openCover, ["-register:user", "-target:nunit3-console.exe", "-targetargs:#{targetArgs}", "-output:OpenCover.xml", "-filter:#{args.filter}", "-excludebyfile:*\*Designer.cs"])
 
-	Utils.run_cmd(coveralls, ["--opencover", "-i", "OpenCover.xml", "--useRelativePaths", "--commitId", "$env:APPVEYOR_REPO_COMMIT", "--commitBranch", "env:APPVEYOR_REPO_BRANCH", "--commitAuthor", "$env:APPVEYOR_REPO_COMMIT_AUTHOR", "--commitEmail", "$env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL", "--commitMessage", "$env:APPVEYOR_REPO_COMMIT_MESSAGE", "--jobId", "$env:APPVEYOR_BUILD_NUMBER", "--serviceName", "appveyor"])
+	Utils.run_cmd(coveralls, ["--opencover", "-i", "OpenCover.xml", "--useRelativePaths", "--repoToken", "$env:COVERALLS_REPO_TOKEN", "--commitId", "$env:APPVEYOR_REPO_COMMIT", "--commitBranch", "env:APPVEYOR_REPO_BRANCH", "--commitAuthor", "$env:APPVEYOR_REPO_COMMIT_AUTHOR", "--commitEmail", "$env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL", "--commitMessage", "$env:APPVEYOR_REPO_COMMIT_MESSAGE", "--jobId", "$env:APPVEYOR_BUILD_NUMBER", "--serviceName", "appveyor"])
 end
 
 __END__
