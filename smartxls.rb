@@ -20,9 +20,10 @@ module SmartXls
       unless sx.nil?
         puts "Patching SmartXLS to #{sx_version} in #{f}".green
         sx['bindingRedirect'][0]['newVersion'] = sx_version
-        file = File.new(f, 'w')
-        file.write("<?xml version='1.0' encoding='utf-8'?>\n")
-        file.write(XmlSimple.xml_out app_config, 'KeepRoot' => true)
+        File.open(f, 'w'){ |file|
+          file.write("<?xml version='1.0' encoding='utf-8'?>\n")
+          file.write(XmlSimple.xml_out app_config, 'KeepRoot' => true)
+        }
       end
     end
   end  
