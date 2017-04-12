@@ -77,7 +77,7 @@ private
 	def copy_src_files(src_dir)
 		src_files = File.join(src_dir, '*.*')
 		copy_to_deploy_dir src_files
-		copy_to_target_dir src_files, @harvest_dir, %w[pdb, xml]
+		copy_to_target_dir src_files, @harvest_dir, %w[pdb xml]
 	end
 
 	def copy_setup_files(setup_files)
