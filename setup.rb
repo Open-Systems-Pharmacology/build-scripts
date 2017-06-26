@@ -7,8 +7,8 @@ namespace :setup do
 	task :create, [:src_dir, :setup_dir,  :product_name, :product_version, :harvest_ignored_files, :suite_name, :setup_files, :solution_dir, :manufacturer] do |task, args|
 		@deploy_dir =  File.join(args.setup_dir, 'deploy');
 		@harvest_dir = File.join(@deploy_dir, 'harvest');
-		@product_version	= args.product_version
-		@product_name	 = args.product_name	
+		@product_version = args.product_version
+		@product_name = args.product_name	
 		@manufacturer = args.manufacturer
 		@suite_name = args.suite_name
 		@harvest_ignored_files = args.harvest_ignored_files || []
@@ -36,7 +36,7 @@ namespace :setup do
 		@variables[:ProductName] =@product_name
 		@variables[:ProductVersion] = @product_version
 		@variables[:Manufacturer] = @manufacturer
-		release_version, *	 = versions_from(@product_version)
+		release_version, * = versions_from(@product_version)
 		@variables[:ProductReleaseVersion] = release_version	
 		@variables[:ProductFullName] = product_full_name_from(@product_name, release_version)
 	end
@@ -58,7 +58,7 @@ namespace :setup do
 		Utils.run_cmd(Wix.light, all_wixobj + all_options)
 	end
 
-	desc "Creates a portable	setup"
+	desc "Creates a portable setup"
 	task :create_portable, [:solution_dir, :src_dir, :setup_dir, :setup_files, :setup_folders, :product_name, :product_version] do |task, args|
 		@solution_dir = args.solution_dir;
 		release_version, full_version	 = versions_from(args.product_version)
@@ -147,7 +147,7 @@ namespace :setup do
 	end
 
 	def copy_to_target_dir_preserve(source, target_dir, base_dir)
-		Dir.glob	source do |file|
+		Dir.glob source do |file|
 			dir_entries = File.dirname(file).split('/')
 			base_index = dir_entries.rindex{ |x| x == base_dir }
 				
