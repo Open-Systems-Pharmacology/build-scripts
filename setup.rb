@@ -59,15 +59,16 @@ namespace :setup do
 	end
 
 	desc "Creates a portable setup"
-	task :create_portable, [:solution_dir, :src_dir, :setup_dir, :setup_files, :setup_folders, :product_name, :product_version] do |task, args|
+	task :create_portable, [:solution_dir, :src_dir, :setup_dir, :setup_files, :setup_folders, :product_name, :product_version, :package_name] do |task, args|
 		@solution_dir = args.solution_dir;
 		release_version, full_version	 = versions_from(args.product_version)
 		product_full_name = product_full_name_from(args.product_name, full_version)
+		package_name = args.package_name || 'portable-setup.zip';
 		setup_files = args.setup_files || []
 		setup_folders = args.setup_folders || []
 	
 		portable_dir = File.join(args.setup_dir, product_full_name)
-		archive_path = File.join(args.setup_dir, 'portable-setup.zip')
+		archive_path = File.join(args.setup_dir, package_name)
 
 		create_portable_dir portable_dir
 		
