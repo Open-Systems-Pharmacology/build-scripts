@@ -6,7 +6,7 @@ module SmartXls
     unzip_dir = File.dirname(smart_xls_package)
     command_line = %W[e #{smart_xls_package} -o#{unzip_dir}]
     Utils.run_cmd('7z', command_line)
-    copy_depdencies unzip_dir, source_dir do
+    copy_dependencies unzip_dir, source_dir do
       copy_file 'SX.dll'
     end
 
