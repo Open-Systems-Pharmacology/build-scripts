@@ -8,7 +8,7 @@ require_relative 'colorize'
 # =>   copy_native_dll
 # => end
 
-def copy_depdencies(source_dir, target_dir, &block)
+def copy_dependencies(source_dir, target_dir, &block)
 	dependecyManager = DependencyManager.new(source_dir, target_dir)
 	dependecyManager.instance_eval(&block)
 	dependecyManager.perform_file_copy
@@ -48,7 +48,7 @@ class DependencyManager
 	def perform_file_copy
 		retrieve_target_dir do |target_dir|
 			FileUtils.mkdir_p target_dir
-			copy_depdencies_to target_dir
+			copy_dependencies_to target_dir
 		end	
 	end
 
@@ -67,7 +67,7 @@ class DependencyManager
 
 	private 
 
-	def copy_depdencies_to(target_dir)
+	def copy_dependencies_to(target_dir)
 		dependencies.each do |dep|
 			Dir.glob(dep).each do |f| 
 				puts "Copying #{f} to #{target_dir}".green
