@@ -4,19 +4,19 @@ require 'open-uri'
 
 def print_all_packages_to_upload_from(directory)
   packages = all_open_pharma_packages(directory)
-
+  
   packages.each do |id, package|
-  	if(!nuget_has_version(package))
-  		push_to_nuget(package)
-  	end
+    if(!nuget_has_version(package))
+      push_to_nuget(package)
+    end
   end
 end
 
 
 def all_open_pharma_packages(directory)
-	projects = Dir.glob(File.join(directory, "**", "*.csproj"));
-	
-	packages = {};
+  projects = Dir.glob(File.join(directory, "**", "*.csproj"));
+  
+  packages = {};
   projects.each do |path|
     project = Project.new path
     project.packages.each do |package|
@@ -31,8 +31,8 @@ def all_open_pharma_packages(directory)
       end
     end
   end
-
-	return packages;
+  
+  return packages;
 end
 
 def nuget_has_version(package)
@@ -46,14 +46,14 @@ def nuget_has_version(package)
 end
 
 def push_to_nuget(package)
-	#todo make this execute
+  #todo make this execute
   #	puts "nuget push #{package.id} -apikey somekey -Source https://www.nuget.org/api/v2/package"
   puts "Package to update: #{package.id} with version #{package.version}"
 end
 
 class Project
   attr_reader :packages 
- 
+  
   def initialize(path)
     @path = path
     @packages = []
@@ -61,23 +61,23 @@ class Project
     project_xml["ItemGroup"].each do |item_group|
       pagckage_ref = item_group["PackageReference"];
       next if !pagckage_ref
-
+      
       pagckage_ref.each do |package|
         id = package["Include"]
         next if !id.start_with?("OSPSuite")
         packages.push Package.new(id, package["Version"])
       end
     end
-	end
+  end
 end
 
 class Package 
-	def initialize(id, version)
+  def initialize(id, version)
     @version = version
     @id = id
-	end
-
+  end
+  
   attr_reader :id 
   
-	attr_reader :version
+  attr_reader :version
 end
