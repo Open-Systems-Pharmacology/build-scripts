@@ -36,8 +36,9 @@ namespace :setup do
 		@variables[:ProductName] =@product_name
 		@variables[:ProductVersion] = @product_version
 		@variables[:Manufacturer] = @manufacturer
-		release_version, * = versions_from(@product_version)
-		@variables[:ProductReleaseVersion] = release_version	
+		release_version, *, suite_version = versions_from(@product_version)
+    @variables[:ProductReleaseVersion] = release_version	
+    @variables[:SuiteVersion] = suite_version	
 		@variables[:ProductFullName] = product_full_name_from(@product_name, release_version)
 	end
 
@@ -90,10 +91,11 @@ namespace :setup do
 	end
 
 	def versions_from(product_version)
-		product_version_split = product_version.split('.')
-		release_version = "#{product_version_split[0]}.#{product_version_split[1]}"
+    product_version_split = product_version.split('.')
+    suite_version = product_version_split[0]
+		release_version = "#{suite_version}.#{product_version_split[1]}"
 		full_version = "#{release_version}.#{product_version_split[2]}"
-		return release_version	, full_version
+		return release_version, full_version, suite_version
 	end
 
 	def zip(command_line)
