@@ -130,6 +130,17 @@ namespace :setup do
     src_files = File.join(src_dir, '*.*')
     copy_to_deploy_dir src_files
     copy_to_target_dir src_files, @harvest_dir, %w[pdb xml]
+    copy_native_runtime_files src_dir
+  end
+
+  def copy_native_runtime_files(src_dir)
+    native_dir = File.join('runtimes', 'win-x64', 'native')
+    native_files = Dir.glob(File.join(src_dir, native_dir, '*.dll'))
+    [@deploy_dir, @harvest_dir].each do |target_dir|
+      dst_dir = File.join(target_dir, native_dir)
+      FileUtils.mkdir_p dst_dir
+      FileUtils.cp native_files, dst_dir
+    end
   end
   
   def copy_setup_files(setup_files, target_dir)
